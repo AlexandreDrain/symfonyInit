@@ -4,3 +4,6 @@
 app_homepage:
     path: /
     controller: App\Controller\HomeController::index
+produit:
+    path: /products/liste
+    controller: App\Controller\ProductController::liste
