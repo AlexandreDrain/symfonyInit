@@ -2,8 +2,9 @@
 namespace App\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class HomeController
+class HomeController extends AbstractController
 {
     
     /**
@@ -12,6 +13,6 @@ class HomeController
      */
     public function index(): Response
     {
-        return new Response('<html><body>Bonjour! </body><html>');
+        return $this->render('index.html.twig');
     }
 }
