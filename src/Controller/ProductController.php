@@ -8,11 +8,12 @@ class ProductController extends AbstractController
 {
     
     /**
-     * Affiche une page HTML
+     * Affiche une page HTML (détails de produit)
      * @return Response
      */
-    public function liste(): Response
+    public function show(string $slug): Response
     {
-        return $this->render('products/liste.html.twig');
+        dump($slug);
+        return $this->render('products/show.html.twig');
     }
 }

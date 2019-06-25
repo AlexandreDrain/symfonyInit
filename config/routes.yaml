@@ -4,6 +4,8 @@
 app_homepage:
     path: /
     controller: App\Controller\HomeController::index
-produit:
-    path: /products/liste
-    controller: App\Controller\ProductController::liste
+app_product_show:
+    path: /products/{slug}
+    controller: App\Controller\ProductController::show
+    requirements: 
+        slug: '[a-z0-9\-]+'
