@@ -13,10 +13,9 @@
                              alt="Image de {{ product.productName }}">
                         <div class="card-body">
                             <h5 class="card-title">{{ product.productName }}</h5>
-                            <p class="card-text">Description :{{ product.productDecription }}</p>
-                            <p class="card-text">Prix :{{ product.price }}</p>
-                            <p class="card-text">Catégorie :{{ product.category.name }}</p>
-                            <p class="card-text">Publié le : {{ product.createdAt | date('d/m/y') }}</p>
+                            <p class="card-text">{{ product.productDecription }}</p>
+                            <p class="card-text badge badge-info">Prix :{{ product.price }}€</p>
+                            <p class="card-text">Publié le : {{ product.createdAt | date('d/m/y à H:i') }}, vue {{ product.nbViews }} fois</p>
                             <p class="card-text">Catégorie : {{ product.category.name }}</p>
                         </div>
                     </div>

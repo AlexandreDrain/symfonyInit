@@ -5,6 +5,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\Produit;
+use App\Entity\Category;
 
 class ProductController extends AbstractController
 {
@@ -17,7 +18,7 @@ class ProductController extends AbstractController
         // Récupération de .....
         $repository = $this->getDoctrine()->getRepository(Produit::class);
         //
-        $products = $repository->findAll();
+        $products = $repository->findBy(["isPublished" => true]);
         //
         return $this->render('products/liste.html.twig', ['products' => $products]);
     }
@@ -28,8 +29,11 @@ class ProductController extends AbstractController
     public function show(string $slug): Response
     {
         $repository = $this->getDoctrine()->getRepository(Produit::class);
-        $product = $repository->findOneBy(['slug' => $slug]);
-        return $this->render('products/show.html.twig', ['product' => $product]);
+        $product = $repository->findOneBy(['slug' => $slug, 'isPublished' => true]);
+        if (!$product) {
+            throw $this->createNotFoundException('Produit innexistant');
+        }
+         return $this->render('products/show.html.twig', ['product' => $product]);
     }
     /**
      * Affiche une page HTML (Création d'un produit)
@@ -38,7 +42,20 @@ class ProductController extends AbstractController
      */
     public function create(Request $requestHTTP): Response
     {
-        $this->addFlash('warning', 'Voulez-vous vraiment créer un porduit ?');
+        // Récuperation d'une catégorie
+        $category = $this->getDoctrine()->getRepository(Category::class)->find(1);
+
+        // Création et remplissage du produit
+        $product = new Produit();
+        $product
+            ->setProductName('ventilateur')
+            ->setProductDescription('Pour faire de l\'air frais')
+            ->setImageName('ventile.jpg')
+            ->setIsPublished(true)
+            ->setPrice(59.99)
+            ->setCategory($category);
+        ;
+        dd($product);
         return $this->render('products/create.html.twig');
     }
 }

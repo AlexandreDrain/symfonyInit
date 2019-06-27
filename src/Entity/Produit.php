@@ -26,7 +26,7 @@ class Produit
     /**
      * @ORM\Column(type="text")
      */
-    private $productDecription;
+    private $productDescription;
 
     /**
      * @ORM\Column(type="decimal", precision=9, scale=2)
@@ -77,6 +77,8 @@ class Produit
     public function __construct()
     {
         $this->tags = new ArrayCollection();
+        $this->nbViews = 0;
+        $this->createdAt = new \DateTime();
     }
 
     public function getId(): ?int
@@ -96,12 +98,12 @@ class Produit
         return $this;
     }
 
-    public function getProductDecription(): ?string
+    public function getProductDescription(): ?string
     {
         return $this->productDecription;
     }
 
-    public function setProductDecription(string $productDecription): self
+    public function setProductDescription(string $productDecription): self
     {
         $this->productDecription = $productDecription;
 
