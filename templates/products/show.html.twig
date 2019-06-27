@@ -1,5 +1,26 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Détail du produit{% endblock %}
+
 {% block body %}
-    <h1>Détails du produit</h1>
+    <h1>Liste des produits</h1>
+    <main class="container">
+        <h1 class="mt-2">Présentation des produits</h1>
+        <section class="row">
+                <div class="col-4">
+                    <div class="card">
+                        <img src="/assets/images/{{ product.imageName }}" class="card-img-top"
+                             alt="Image de {{ product.productName }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.productName }}</h5>
+                            <p class="card-text">Description :{{ product.productDecription }}</p>
+                            <p class="card-text">Prix :{{ product.price }}</p>
+                            <p class="card-text">Catégorie :{{ product.category.name }}</p>
+                            <p class="card-text">Publié le : {{ product.createdAt | date('d/m/y') }}</p>
+                            <p class="card-text">Catégorie : {{ product.category.name }}</p>
+                        </div>
+                    </div>
+                </div>
+        </section>
+    </main>
 {% endblock %}
