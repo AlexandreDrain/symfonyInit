@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Cocur\Slugify\Slugify;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProduitRepository")
@@ -81,6 +82,20 @@ class Produit
         $this->createdAt = new \DateTime();
     }
 
+    /**
+     * Met a jour le slug par rapport au name
+     * @return Produit
+     */
+    public function updateSlug(): self
+    {
+        // On récupère le slugger
+        $slugify = new Slugify();
+        // mise a jour du slug par rapport au name
+        $this->slug = $slugify->slugify($this->productName);
+        // Pour le chainage
+        return $this;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -94,18 +109,19 @@ class Produit
     public function setProductName(string $productName): self
     {
         $this->productName = $productName;
+        $this->updateSlug();
 
         return $this;
     }
 
     public function getProductDescription(): ?string
     {
-        return $this->productDecription;
+        return $this->productDescription;
     }
 
-    public function setProductDescription(string $productDecription): self
+    public function setProductDescription(string $productDescription): self
     {
-        $this->productDecription = $productDecription;
+        $this->productDescription = $productDescription;
 
         return $this;
     }
@@ -182,7 +198,7 @@ class Produit
         return $this;
     }
 
-    public function getCategory(): Category
+    public function getCategory(): ?Category
     {
         return $this->category;
     }

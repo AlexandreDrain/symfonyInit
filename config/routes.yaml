@@ -12,6 +12,18 @@ app_product_liste:
     path: /products/liste
     controller: App\Controller\ProductController::liste
     methods: ['GET']
+app_product_update:
+    path: /products/update
+    controller: App\Controller\ProductController::update
+    requirements: 
+        slug: '[a-z0-9\-]+'
+    methods: ['GET', 'POST']
+app_product_delete:
+    path: /products/suppression/jesuissur/delete
+    controller: App\Controller\ProductController::delete
+    requirements: 
+        slug: '[a-z0-9\-]+'
+    methods: ['GET', 'POST']
 app_product_show:
     path: /products/{slug}
     controller: App\Controller\ProductController::show
